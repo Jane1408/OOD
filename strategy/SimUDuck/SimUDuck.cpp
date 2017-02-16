@@ -18,7 +18,11 @@ public:
 	void Fly() override
 	{
 		cout << "I'm flying with wings!!" << endl;
+		m_flightCount++;
+		cout << "It's my " << m_flightCount << " flight!" << endl;
 	}
+
+	size_t m_flightCount = 0;
 };
 
 class FlyNoWay : public IFlyBehavior
