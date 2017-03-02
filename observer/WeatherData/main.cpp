@@ -8,7 +8,7 @@ int main()
 	CWeatherData wd;
 
 	CDisplay display;
-	wd.RegisterObserver(display);
+	wd.RegisterObserver(display, 1);
 
 	CStatsDisplay statsDisplay;
 	wd.RegisterObserver(statsDisplay);
