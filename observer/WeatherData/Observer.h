@@ -38,9 +38,10 @@ class CObservable : public IObservable<T>
 public:
 	typedef IObserver<T> ObserverType;
 
-	void RegisterObserver(ObserverType & observer, size_t priority = std::numeric_limits<size_t>::max()) override
+	void RegisterObserver(ObserverType & observer, size_t priority = 0) override
 	{
-		m_observers.emplace(priority, &observer);
+		size_t invertPriority = std::numeric_limits<size_t>::max() - priority;
+		m_observers.emplace(invertPriority, &observer);
 	}
 
 	void NotifyObservers() override
