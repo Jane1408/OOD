@@ -40,6 +40,7 @@ public:
 
 	void RegisterObserver(ObserverType & observer, size_t priority = 0) override
 	{
+		RemoveObserver(observer);
 		size_t invertPriority = std::numeric_limits<size_t>::max() - priority;
 		m_observers.emplace(invertPriority, &observer);
 	}

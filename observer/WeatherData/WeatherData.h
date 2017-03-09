@@ -47,10 +47,13 @@ public:
 	}
 	void Print()
 	{
-		std::cout << "Max " << m_name << m_max << std::endl;
-		std::cout << "Min " << m_name << m_min << std::endl;
-		std::cout << "Average " << m_name << (m_acc / m_countAcc) << std::endl;
-		std::cout << "----------------" << std::endl;
+		if (m_countAcc > 0)
+		{
+			std::cout << "Max " << m_name << m_max << std::endl;
+			std::cout << "Min " << m_name << m_min << std::endl;
+			std::cout << "Average " << m_name << (m_acc / m_countAcc) << std::endl;
+			std::cout << "----------------" << std::endl;
+		}
 	}
 private:
 	std::string m_name;
