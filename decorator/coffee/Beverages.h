@@ -1,8 +1,6 @@
 ﻿#pragma once
 
 #include "IBeverage.h"
-#include <map>
-#include <string>
 
 // Базовая реализация напитка, предоставляющая его описание
 class CBeverage : public IBeverage
@@ -83,20 +81,11 @@ enum class SortOfTea
 	White,
 };
 
-std::map <SortOfTea, std::string> TeaMap = {
-	{ SortOfTea::Ceylon, "Ceylon" },
-	{ SortOfTea::Carcade, "Carcade" },
-	{ SortOfTea::Green, "Green" },
-	{ SortOfTea::White, "White" },
-};
-
 // Чай
 class CTea : public CBeverage
 {
 public:
-	CTea(SortOfTea sort)
-		:CBeverage(TeaMap.find(sort)->second + "Tea")
-	{}
+	CTea(SortOfTea sort);
 
 	double GetCost() const override 
 	{
@@ -111,31 +100,13 @@ enum class VolumeOfMilkshake
 	Small,
 };
 
-std::map <VolumeOfMilkshake, std::string> MilkshakeMap = {
-	{ VolumeOfMilkshake::Big, "Big"},
-	{ VolumeOfMilkshake::Middle, "Middle" },
-	{ VolumeOfMilkshake::Small, "Small" },
-};
-
-std::map <VolumeOfMilkshake, double> MilkshakeCostMap = {
-	{ VolumeOfMilkshake::Big, 80 },
-	{ VolumeOfMilkshake::Middle, 60 },
-	{ VolumeOfMilkshake::Small, 50 },
-};
-
 // Молочный коктейль
 class CMilkshake : public CBeverage
 {
 public:
-	CMilkshake(VolumeOfMilkshake volume)
-		:CBeverage(MilkshakeMap.find(volume)->second + "Milkshake")
-		, m_volume(volume)
-	{}
+	CMilkshake(VolumeOfMilkshake volume);
 
-	double GetCost() const override 
-	{ 
-		return MilkshakeCostMap.find(m_volume)->second;
-	}
+	double GetCost() const override;
 private:
 	VolumeOfMilkshake m_volume;
 };
