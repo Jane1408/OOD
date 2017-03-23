@@ -1,0 +1,6 @@
+<EllipseType> <center.x> <center.y> <horizontalRadius> <verticalRadius>
+example: Ellipse 5 5 2 3
+<RectangleType> <leftTop.x> <leftTop.y> <rightBottom.x> <rightBottom.y>
+example: Rectangle 1 1 4 4
+<TriangleType> <vertex1.x> <vertex1.y> <vertex2.x> <vertex2.y> <vertex3.x> <vertex3.y>
+example: Triangle 2 2 4 4 0 4
