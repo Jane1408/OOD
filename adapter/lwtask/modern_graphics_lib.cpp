@@ -8,55 +8,55 @@ using namespace std;
 namespace modern_graphics_lib
 {
 
-		CPoint::CPoint (int x, int y) 
-			: x(x)
-			, y(y) 
-		{}
+	CPoint::CPoint(int x, int y)
+		: x(x)
+		, y(y)
+	{}
 
 
-		CModernGraphicsRenderer::CModernGraphicsRenderer(std::ostream & strm) 
-			: m_out(strm)
+	CModernGraphicsRenderer::CModernGraphicsRenderer(std::ostream & strm)
+		: m_out(strm)
+	{
+	}
+
+	CModernGraphicsRenderer::~CModernGraphicsRenderer()
+	{
+		if (m_drawing) // «авершаем рисование, если оно было начато
 		{
+			EndDraw();
 		}
+	}
 
-		CModernGraphicsRenderer::~CModernGraphicsRenderer()
+	// Ётот метод должен быть вызван в начале рисовани€
+	void CModernGraphicsRenderer::BeginDraw()
+	{
+		if (m_drawing)
 		{
-			if (m_drawing) // «авершаем рисование, если оно было начато
-			{
-				EndDraw();
-			}
+			throw logic_error("Drawing has already begun");
 		}
+		m_out << "<draw>" << endl;
+		m_drawing = true;
+	}
 
-		// Ётот метод должен быть вызван в начале рисовани€
-		void CModernGraphicsRenderer::BeginDraw()
+	// ¬ыполн€ет рисование линии
+	void CModernGraphicsRenderer::DrawLine(const CPoint & start, const CPoint & end)
+	{
+		if (!m_drawing)
 		{
-			if (m_drawing)
-			{
-				throw logic_error("Drawing has already begun");
-			}
-			m_out << "<draw>" << endl;
-			m_drawing = true;
+			throw logic_error("DrawLine is allowed between BeginDraw()/EndDraw() only");
 		}
+		m_out << boost::format(R"(  <line fromX="%1%" fromY="%2%" toX="%3%" toY="%4%"/>)") % start.x % start.y % end.x % end.y << endl;
+	}
 
-		// ¬ыполн€ет рисование линии
-		void CModernGraphicsRenderer::DrawLine(const CPoint & start, const CPoint & end)
+	// Ётот метод должен быть вызван в конце рисовани€
+	void CModernGraphicsRenderer::EndDraw()
+	{
+		if (!m_drawing)
 		{
-			if (!m_drawing)
-			{
-				throw logic_error("DrawLine is allowed between BeginDraw()/EndDraw() only");
-			}
-			m_out << boost::format(R"(  <line fromX="%1%" fromY="%2%" toX="%3%" toY="%4%"/>)") % start.x % start.y % end.x % end.y << endl;
+			throw logic_error("Drawing has not been started");
 		}
-
-		// Ётот метод должен быть вызван в конце рисовани€
-		void CModernGraphicsRenderer::EndDraw()
-		{
-			if (!m_drawing)
-			{
-				throw logic_error("Drawing has not been started");
-			}
-			m_out << "</draw>" << endl;
-			m_drawing = false;
-		}
+		m_out << "</draw>" << endl;
+		m_drawing = false;
+	}
 
 }

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="lib_pro">
+      <UniqueIdentifier>{9d4c95b4-33e5-4646-a42c-f9699df20cff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,6 +30,15 @@
     <ClCompile Include="modern_graphics_lib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_lib_pro.cpp">
+      <Filter>lib_pro</Filter>
+    </ClCompile>
+    <ClCompile Include="modern_graphics_lib_pro.cpp">
+      <Filter>lib_pro</Filter>
+    </ClCompile>
+    <ClCompile Include="shape_drawing_lib_pro.cpp">
+      <Filter>lib_pro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphics_lib.h">
@@ -37,6 +49,15 @@
     </ClInclude>
     <ClInclude Include="modern_graphics_lib.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_lib_pro.h">
+      <Filter>lib_pro</Filter>
+    </ClInclude>
+    <ClInclude Include="modern_graphics_lib_pro.h">
+      <Filter>lib_pro</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_drawing_lib_pro.h">
+      <Filter>lib_pro</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
