@@ -9,7 +9,7 @@ public:
 
 	void SetColor(Color color) override;
 	void DrawLine(Vector2 from, Vector2 to) override;
-	void DrawEllipse(Vector2 center, double harizontalRadius, double verticalRadius) override;
+	void DrawEllipse(Vector2 center, double horizontalRadius, double verticalRadius) override;
 
 private:
 

@@ -54,6 +54,7 @@ std::shared_ptr<CShape> CShapeFactory::CreateShape(std::string const & descripti
 
 std::shared_ptr<CShape> CShapeFactory::CreateRectangle(std::istream & dscr)
 {
+	
 	Vector2 leftTop(-1.0, -1.0);
 	Vector2 rightBottom(-1.0, -1.0);
 	dscr >> leftTop.x >> leftTop.y >> rightBottom.x >> rightBottom.y;

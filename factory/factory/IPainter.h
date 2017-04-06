@@ -6,7 +6,7 @@ class IPainter
 {
 public:
 	IPainter() {};
-	~IPainter() {};
+	virtual ~IPainter() = 0;
 
 	virtual void DrawPicture(CPictureDraft & draft, ICanvas & canvas) = 0;
 };

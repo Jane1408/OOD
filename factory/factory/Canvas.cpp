@@ -32,11 +32,11 @@ void CCanvas::DrawLine(Vector2 from, Vector2 to)
 	std::cout << "---FINISH_DRAW_LINE---" << std::endl;
 }
 
-void CCanvas::DrawEllipse(Vector2 center, double harizontalRadius, double verticalRadius)
+void CCanvas::DrawEllipse(Vector2 center, double horizontalRadius, double verticalRadius)
 {
 	std::cout << "---BEGIN_DRAW_ELLIPSE---" << std::endl;
 	std::cout << "Center ( " << center.x << " , " << center.y << " )" << std::endl;
-	std::cout << "Harizontal Radius " << harizontalRadius << std::endl;
+	std::cout << "horizontal Radius " << horizontalRadius << std::endl;
 	std::cout << "Vertical Radius " << verticalRadius << std::endl;
 	std::cout << "---FINISH_DRAW_ELLIPSE---" << std::endl;
 }

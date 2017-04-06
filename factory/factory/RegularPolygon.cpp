@@ -16,7 +16,7 @@ CRegularPolygon::~CRegularPolygon()
 
 void CRegularPolygon::Draw(ICanvas & canvas) const
 {
-
+	
 }
 
 size_t CRegularPolygon::GetVertexCount()
