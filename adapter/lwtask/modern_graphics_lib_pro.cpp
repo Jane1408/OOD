@@ -45,9 +45,10 @@ namespace modern_graphics_lib_pro
 	{
 		if (m_drawing)
 		{
-			cout << boost::format(R"(<line fromX="%1%" fromY="%2%" toX="%3%" toY="%4%">
-			<color r="%5%" g="%6%" b="%7%" a="%8%" />
-			</line>)") % start.x % start.y % end.x %end.y % color.r % color.g % color.b % color.a;
+			cout << boost::format(R"(
+    <line fromX="%1%" fromY="%2%" toX="%3%" toY="%4%">
+        <color r="%5%" g="%6%" b="%7%" a="%8%" />
+    </line>)") % start.x % start.y % end.x %end.y % color.r % color.g % color.b % color.a << endl;
 		}
 	}
 

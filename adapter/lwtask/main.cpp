@@ -24,16 +24,21 @@ namespace app
 			: m_renderer(renderer)
 			, m_from({0, 0})
 		{
+			m_renderer.BeginDraw();
 		}
+
+		~CAdapterCanvas()
+		{
+			m_renderer.EndDraw();
+		}
+
 		void MoveTo(int x, int y) override
 		{
 			m_from = { x, y };
 		}
 		void LineTo(int x, int y) override
 		{
-			m_renderer.BeginDraw();
 			m_renderer.DrawLine(m_from, { x, y });
-			m_renderer.EndDraw();
 			m_from = { x, y };
 		}
 
@@ -66,6 +71,7 @@ void PaintPictureOnModernGraphicsRenderer()
 	modern_graphics_lib::CModernGraphicsRenderer renderer(std::cout);
 	CAdapterCanvas rendererAdapter(renderer);
 	shape_drawing_lib::CCanvasPainter painter(rendererAdapter);
+	
 	PaintPicture(painter);
 }
 }
@@ -82,26 +88,26 @@ namespace app_pro
 			, m_modernColor(0, 0, 0, 0)
 		{
 		}
+
 		void MoveTo(int x, int y) override
 		{
 			m_from = { x, y };
 		}
 		void LineTo(int x, int y) override
 		{
-			BeginDraw();
 			DrawLine(m_from, { x, y }, m_modernColor);
-			EndDraw();
 			m_from = { x, y };
 		}
 
 		void SetColor(uint32_t rgbColor) override
 		{
 			m_color = rgbColor;
-			auto tempRgbColor = rgbColor;
-			float a = ((m_color) * 0x0000FF) / 256.f;
-			float b = ((m_color >>= 8) * 0x0000FF) / 256.f;
-			float g = ((m_color >>= 8) * 0x0000FF) / 256.f;
-			float r = ((m_color >>= 8) * 0x0000FF) / 256.f;
+
+			float a = 1.f;
+			float r = ((m_color >> 16) & 0xFF) / 255.f;
+			float g = ((m_color >> 8) & 0x00FF) / 255.f;
+			float b = ((m_color ) & 0x0000FF) / 255.f;
+		
 			modern_graphics_lib_pro::CRGBAColor color(r,g,b,a);
 			m_modernColor = color;
 		}
@@ -116,7 +122,7 @@ namespace app_pro
 	{
 		using namespace shape_drawing_lib_pro;
 
-		CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 }, 570);
+		CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 }, 570789);
 		CRectangle rectangle({ 30, 40 }, 18, 24, 555555);
 
 		painter.Draw(triangle);
@@ -133,8 +139,10 @@ namespace app_pro
 	void PaintPictureOnModernGraphicsRenderer()
 	{
 		CAdapterPro adapter(std::cout);
+		adapter.BeginDraw();
 		shape_drawing_lib_pro::CCanvasPainter painter(adapter);
 		PaintPicture(painter);
+		adapter.EndDraw();
 	}
 }
 
