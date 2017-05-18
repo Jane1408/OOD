@@ -10,6 +10,7 @@ struct IState
 	virtual void EjectQuarter() = 0;
 	virtual void TurnCrank() = 0;
 	virtual void Dispense() = 0;
+	virtual void Refill(unsigned numBalls) = 0;
 	virtual std::string ToString()const = 0;
 	virtual ~IState() = default;
 };
@@ -19,6 +20,7 @@ struct IGumballMachine
 	virtual void ReleaseBall() = 0;
 	virtual unsigned GetBallCount()const = 0;
 	virtual unsigned GetQuarterCount()const = 0;
+	virtual void SetBallCount(unsigned numBalls) = 0;
 
 	virtual void SetSoldOutState() = 0;
 	virtual void SetNoQuarterState() = 0;
@@ -38,6 +40,7 @@ public:
 	void EjectQuarter() override;
 	void TurnCrank() override;
 	void Dispense() override;
+	void Refill(unsigned numBalls) override;
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
@@ -52,6 +55,7 @@ public:
 	void EjectQuarter() override;
 	void TurnCrank() override;
 	void Dispense() override;
+	void Refill(unsigned numBalls) override;
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
@@ -65,6 +69,7 @@ public:
 	void EjectQuarter() override;
 	void TurnCrank() override;
 	void Dispense() override;
+	void Refill(unsigned numBalls) override;
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
@@ -78,6 +83,7 @@ public:
 	void EjectQuarter() override;
 	void TurnCrank() override;
 	void Dispense() override;
+	void Refill(unsigned numBalls) override;
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
@@ -101,6 +107,7 @@ private:
 	void SetSoldState() override;
 	void SetHasQuarterState() override;
 	void AddQuarter() override;
+	void SetBallCount(unsigned numBalls) override;
 private:
 	unsigned m_count = 0;
 	unsigned m_quarterCount = 0;

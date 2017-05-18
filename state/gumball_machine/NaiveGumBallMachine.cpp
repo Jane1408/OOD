@@ -96,12 +96,26 @@ namespace naive
 
 	void CGumballMachine::Refill(unsigned numBalls)
 	{
-		m_count = numBalls;
-		if (numBalls > 0)
+		using namespace std;
+		numBalls = numBalls >= 0 ? numBalls : 0;
+		switch (m_state)
+		{
+		case State::NoQuarterAndSoldOut:
+		case State::HasQuarterAndSoldOut:
+		case State::NoQuarter:
+		case State::HasQuarter:
+			m_count = numBalls;
+			std::cout << "Refill gumballs count " << m_count << "\n";
+			break;
+		case State::Sold:
+			cout << "You can't refill gumball machine\n";
+			break;
+		}
+		if (m_count > 0)
 			m_state = m_quarterCount > 0 ? State::HasQuarter : State::NoQuarter;
 		else
 			m_state = m_quarterCount > 0 ? State::HasQuarterAndSoldOut : State::NoQuarterAndSoldOut;
-		std::cout << "Refill gumballs count " << m_count << "\n";
+		
 	}
 
 	std::string CGumballMachine::ToString() const

@@ -44,6 +44,12 @@ namespace with_state
 				m_gumballMachine.SetNoQuarterState();
 		}
 	}
+
+	void CSoldState::Refill(unsigned numBalls)
+	{
+		std::cout << "You can't refill gumball machine\n";
+	}
+
 	std::string CSoldState::ToString() const
 	{
 		return "delivering a gumball";
@@ -77,6 +83,23 @@ namespace with_state
 	{
 		std::cout << "No gumball dispensed\n";
 	}
+
+	void CSoldOutState::Refill(unsigned numBalls)
+	{
+		numBalls = numBalls >= 0 ? numBalls : 0;
+		m_gumballMachine.SetBallCount(numBalls);
+		if (numBalls > 0)
+		{
+			if (m_gumballMachine.GetQuarterCount() > 0)
+				m_gumballMachine.SetHasQuarterState();
+			else
+				m_gumballMachine.SetNoQuarterState();
+		}
+		else
+			m_gumballMachine.SetSoldState();
+		std::cout << "Refill gumballs count " << numBalls << "\n";
+	}
+
 	std::string CSoldOutState::ToString() const
 	{
 		return "sold out";
@@ -113,6 +136,23 @@ namespace with_state
 	{
 		std::cout << "No gumball dispensed\n";
 	}
+
+	void CHasQuarterState::Refill(unsigned numBalls)
+	{
+		numBalls = numBalls >= 0 ? numBalls : 0;
+		m_gumballMachine.SetBallCount(numBalls);
+		if (numBalls > 0)
+		{
+			if (m_gumballMachine.GetQuarterCount() > 0)
+				m_gumballMachine.SetHasQuarterState();
+			else
+				m_gumballMachine.SetNoQuarterState();
+		}
+		else
+			m_gumballMachine.SetSoldState();
+		std::cout << "Refill gumballs count " << numBalls << "\n";
+	}
+
 	std::string CHasQuarterState::ToString() const
 	{
 		return "waiting for turn of crank";
@@ -142,6 +182,23 @@ namespace with_state
 	{
 		std::cout << "You need to pay first\n";
 	}
+
+	void CNoQuarterState::Refill(unsigned numBalls)
+	{
+		numBalls = numBalls >= 0 ? numBalls : 0;
+		m_gumballMachine.SetBallCount(numBalls);
+		if (numBalls > 0)
+		{
+			if (m_gumballMachine.GetQuarterCount() > 0)
+				m_gumballMachine.SetHasQuarterState();
+			else
+				m_gumballMachine.SetNoQuarterState();
+		}
+		else
+			m_gumballMachine.SetSoldState();
+		std::cout << "Refill gumballs count " << numBalls << "\n";
+	}
+
 	std::string CNoQuarterState::ToString() const
 	{
 		return "waiting for quarter";
@@ -173,6 +230,11 @@ namespace with_state
 	{
 		m_state->TurnCrank();
 		m_state->Dispense();
+	}
+
+	void CGumballMachine::Refill(unsigned numBalls)
+	{
+		m_state->Refill(numBalls);
 	}
 
 	std::string CGumballMachine::ToString()const
@@ -227,18 +289,10 @@ Machine is %4%
 		++m_quarterCount;
 	}
 
-	void CGumballMachine::Refill(unsigned numBalls)
+	void CGumballMachine::SetBallCount(unsigned numBalls)
 	{
 		m_count = numBalls;
-		if (m_count > 0)
-		{
-			if (m_quarterCount > 0)
-				SetHasQuarterState();
-			else
-				SetNoQuarterState();
-		}
-		else
-			SetSoldState();
-	std::cout << "Refill gumballs count " << m_count << "\n";
 	}
+
+	
 }
