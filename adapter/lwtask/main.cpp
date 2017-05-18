@@ -17,17 +17,17 @@ using namespace std;
 // Пространство имен приложения (доступно для модификации)
 namespace app
 {
-	class CAdapterCanvas : public graphics_lib::ICanvas
+	class CCanvasAdapter : public graphics_lib::ICanvas
 	{
 	public:
-		CAdapterCanvas(modern_graphics_lib::CModernGraphicsRenderer & renderer)
+		CCanvasAdapter(modern_graphics_lib::CModernGraphicsRenderer & renderer)
 			: m_renderer(renderer)
 			, m_from({0, 0})
 		{
 			m_renderer.BeginDraw();
 		}
 
-		~CAdapterCanvas()
+		~CCanvasAdapter()
 		{
 			m_renderer.EndDraw();
 		}
@@ -69,7 +69,7 @@ void PaintPictureOnCanvas()
 void PaintPictureOnModernGraphicsRenderer()
 {
 	modern_graphics_lib::CModernGraphicsRenderer renderer(std::cout);
-	CAdapterCanvas rendererAdapter(renderer);
+	CCanvasAdapter rendererAdapter(renderer);
 	shape_drawing_lib::CCanvasPainter painter(rendererAdapter);
 	
 	PaintPicture(painter);
@@ -78,11 +78,11 @@ void PaintPictureOnModernGraphicsRenderer()
 
 namespace app_pro
 {
-	class CAdapterPro : public graphics_lib_pro::ICanvas
+	class CProAdapter : public graphics_lib_pro::ICanvas
 		, public modern_graphics_lib_pro::CModernGraphicsRenderer
 	{
 	public:
-		CAdapterPro(std::ostream & strm)
+		CProAdapter(std::ostream & strm)
 			: modern_graphics_lib_pro::CModernGraphicsRenderer(strm)
 			, m_from ({0, 0})
 			, m_modernColor(0, 0, 0, 0)
@@ -138,7 +138,7 @@ namespace app_pro
 
 	void PaintPictureOnModernGraphicsRenderer()
 	{
-		CAdapterPro adapter(std::cout);
+		CProAdapter adapter(std::cout);
 		adapter.BeginDraw();
 		shape_drawing_lib_pro::CCanvasPainter painter(adapter);
 		PaintPicture(painter);
