@@ -48,7 +48,7 @@ namespace with_dynamic_state
 
 	void CSoldState::Refill(unsigned numBalls)
 	{
-
+		numBalls;
 		std::cout << "You can't refill gumball machine\n";
 	}
 

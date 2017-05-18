@@ -36,6 +36,7 @@ class CSoldState : public IState
 {
 public:
 	CSoldState(IGumballMachine & gumballMachine);
+	CSoldState(std::ostream & out, IGumballMachine & gumballMachine);
 	void InsertQuarter() override;
 	void EjectQuarter() override;
 	void TurnCrank() override;
@@ -44,13 +45,14 @@ public:
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream& m_out;
 };
 
 class CSoldOutState : public IState
 {
 public:
 	CSoldOutState(IGumballMachine & gumballMachine);
-
+	CSoldOutState(std::ostream & out, IGumballMachine & gumballMachine);
 	void InsertQuarter() override;
 	void EjectQuarter() override;
 	void TurnCrank() override;
@@ -59,12 +61,14 @@ public:
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream& m_out;
 };
 
 class CHasQuarterState : public IState
 {
 public:
 	CHasQuarterState(IGumballMachine & gumballMachine);
+	CHasQuarterState(std::ostream & out, IGumballMachine & gumballMachine);
 	void InsertQuarter() override;
 	void EjectQuarter() override;
 	void TurnCrank() override;
@@ -73,12 +77,14 @@ public:
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream& m_out;
 };
 
 class CNoQuarterState : public IState
 {
 public:
 	CNoQuarterState(IGumballMachine & gumballMachine);
+	CNoQuarterState(std::ostream & out, IGumballMachine & gumballMachine);
 	void InsertQuarter() override;
 	void EjectQuarter() override;
 	void TurnCrank() override;
@@ -87,12 +93,14 @@ public:
 	std::string ToString() const override;
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream& m_out;
 };
 
 class CGumballMachine : private IGumballMachine
 {
 public:
 	CGumballMachine(unsigned numBalls);
+	CGumballMachine(std::ostream & out, unsigned numBalls);
 	void EjectQuarter();
 	void InsertQuarter();
 	void TurnCrank();
@@ -115,8 +123,9 @@ private:
 	CSoldOutState m_soldOutState;
 	CNoQuarterState m_noQuarterState;
 	CHasQuarterState m_hasQuarterState;
-	IState * m_state;
-	
+	IState * m_state = nullptr;
+	std::ostream& m_out;
+
 };
 
 }

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <boost/format.hpp>
 #include <iostream>
 #include "Constants.h"
@@ -7,33 +8,38 @@ namespace with_state
 {
 
 	CSoldState::CSoldState(IGumballMachine & gumballMachine)
-		:m_gumballMachine(gumballMachine)
+		: m_out(m_out)
+		, m_gumballMachine(gumballMachine)
+	{}
+	CSoldState::CSoldState(std::ostream & out, IGumballMachine & gumballMachine)
+		: m_out(out)
+		, m_gumballMachine(gumballMachine)
 	{}
 	void CSoldState::InsertQuarter()
 	{
 		if (m_gumballMachine.GetQuarterCount() < QUARTER_LIMIT)
 		{
-			std::cout << "You inserted a quarter\n";
+			m_out << "You inserted a quarter\n";
 			m_gumballMachine.AddQuarter();
 			m_gumballMachine.SetHasQuarterState();
 		}
 		else
-			std::cout << "Quarter count more than limit, you can't insert quarter\n";
+			m_out << "Quarter count more than limit, you can't insert quarter\n";
 	}
 	void CSoldState::EjectQuarter()
 	{
-		std::cout << "Sorry you already turned the crank\n";
+		m_out << "Sorry you already turned the crank\n";
 	}
 	void CSoldState::TurnCrank()
 	{
-		std::cout << "Turning twice doesn't get you another gumball\n";
+		m_out << "Turning twice doesn't get you another gumball\n";
 	}
 	void CSoldState::Dispense()
 	{
 		m_gumballMachine.ReleaseBall();
 		if (m_gumballMachine.GetBallCount() == 0)
 		{
-			std::cout << "Oops, out of gumballs\n";
+			m_out << "Oops, out of gumballs\n";
 			m_gumballMachine.SetSoldOutState();
 		}
 		else
@@ -47,7 +53,8 @@ namespace with_state
 
 	void CSoldState::Refill(unsigned numBalls)
 	{
-		std::cout << "You can't refill gumball machine\n";
+		numBalls;
+		m_out << "You can't refill gumball machine\n";
 	}
 
 	std::string CSoldState::ToString() const
@@ -58,30 +65,38 @@ namespace with_state
 
 
 	CSoldOutState::CSoldOutState(IGumballMachine & gumballMachine)
-		:m_gumballMachine(gumballMachine)
+		: m_out(std::cout)
+		, m_gumballMachine(gumballMachine)
 	{}
+
+	CSoldOutState::CSoldOutState(std::ostream & out, IGumballMachine & gumballMachine)
+		: m_out(out)
+		, m_gumballMachine(gumballMachine)
+	{
+	}
 
 	void CSoldOutState::InsertQuarter()
 	{
-		std::cout << "You can't insert a quarter, the machine is sold out\n";
+		m_out << "You can't insert a quarter, the machine is sold out\n";
 	}
 	void CSoldOutState::EjectQuarter()
 	{
 		if (m_gumballMachine.GetQuarterCount() > 0)
 		{
-			std::cout << "Quarter returned\n";
+			m_out << "Quarter returned\n";
 			m_gumballMachine.SetNoQuarterState();
+			m_gumballMachine.SetSoldOutState();
 		}
 		else
-			std::cout << "You can't eject, you haven't inserted a quarter yet\n";
+			m_out << "You can't eject, you haven't inserted a quarter yet\n";
 	}
 	void CSoldOutState::TurnCrank()
 	{
-		std::cout << "You turned but there's no gumballs\n";
+		m_out << "You turned but there's no gumballs\n";
 	}
 	void CSoldOutState::Dispense()
 	{
-		std::cout << "No gumball dispensed\n";
+		m_out << "No gumball dispensed\n";
 	}
 
 	void CSoldOutState::Refill(unsigned numBalls)
@@ -97,7 +112,7 @@ namespace with_state
 		}
 		else
 			m_gumballMachine.SetSoldState();
-		std::cout << "Refill gumballs count " << numBalls << "\n";
+		m_out << "Refill gumballs count " << numBalls << "\n";
 	}
 
 	std::string CSoldOutState::ToString() const
@@ -108,33 +123,40 @@ namespace with_state
 
 
 	CHasQuarterState::CHasQuarterState(IGumballMachine & gumballMachine)
-		:m_gumballMachine(gumballMachine)
+		: m_out(std::cout)
+		, m_gumballMachine(gumballMachine)
 	{}
+
+	CHasQuarterState::CHasQuarterState(std::ostream & out, IGumballMachine & gumballMachine)
+		: m_out(out)
+		, m_gumballMachine(gumballMachine)
+	{
+	}
 
 	void CHasQuarterState::InsertQuarter()
 	{
 		if (m_gumballMachine.GetQuarterCount() < QUARTER_LIMIT)
 		{
-			std::cout << "You inserted a quarter\n";
+			m_out << "You inserted a quarter\n";
 			m_gumballMachine.AddQuarter();
 			m_gumballMachine.SetHasQuarterState();
 		}
 		else
-			std::cout << "Quarter count more than limit, you can't insert quarter\n";
+			m_out << "Quarter count more than limit, you can't insert quarter\n";
 	}
 	void CHasQuarterState::EjectQuarter()
 	{
-		std::cout << "Quarter returned\n";
+		m_out << "Quarter returned\n";
 		m_gumballMachine.SetNoQuarterState();
 	}
 	void CHasQuarterState::TurnCrank()
 	{
-		std::cout << "You turned...\n";
+		m_out << "You turned...\n";
 		m_gumballMachine.SetSoldState();
 	}
 	void CHasQuarterState::Dispense()
 	{
-		std::cout << "No gumball dispensed\n";
+		m_out << "No gumball dispensed\n";
 	}
 
 	void CHasQuarterState::Refill(unsigned numBalls)
@@ -150,7 +172,7 @@ namespace with_state
 		}
 		else
 			m_gumballMachine.SetSoldState();
-		std::cout << "Refill gumballs count " << numBalls << "\n";
+		m_out << "Refill gumballs count " << numBalls << "\n";
 	}
 
 	std::string CHasQuarterState::ToString() const
@@ -161,26 +183,33 @@ namespace with_state
 
 
 	CNoQuarterState::CNoQuarterState(IGumballMachine & gumballMachine)
-		: m_gumballMachine(gumballMachine)
+		: m_out(std::cout)
+		, m_gumballMachine(gumballMachine)
 	{}
+
+	CNoQuarterState::CNoQuarterState(std::ostream & out, IGumballMachine & gumballMachine)
+		: m_out(out)
+		, m_gumballMachine(gumballMachine)
+	{
+	}
 
 	void CNoQuarterState::InsertQuarter()
 	{
-		std::cout << "You inserted a quarter\n";
+		m_out << "You inserted a quarter\n";
 		m_gumballMachine.AddQuarter();
 		m_gumballMachine.SetHasQuarterState();
 	}
 	void CNoQuarterState::EjectQuarter()
 	{
-		std::cout << "You haven't inserted a quarter\n";
+		m_out << "You haven't inserted a quarter\n";
 	}
 	void CNoQuarterState::TurnCrank()
 	{
-		std::cout << "You turned but there's no quarter\n";
+		m_out << "You turned but there's no quarter\n";
 	}
 	void CNoQuarterState::Dispense()
 	{
-		std::cout << "You need to pay first\n";
+		m_out << "You need to pay first\n";
 	}
 
 	void CNoQuarterState::Refill(unsigned numBalls)
@@ -189,21 +218,17 @@ namespace with_state
 		m_gumballMachine.SetBallCount(numBalls);
 		if (numBalls > 0)
 		{
-			if (m_gumballMachine.GetQuarterCount() > 0)
-				m_gumballMachine.SetHasQuarterState();
-			else
-				m_gumballMachine.SetNoQuarterState();
+			m_gumballMachine.SetNoQuarterState();
 		}
 		else
 			m_gumballMachine.SetSoldState();
-		std::cout << "Refill gumballs count " << numBalls << "\n";
+		m_out << "Refill gumballs count " << numBalls << "\n";
 	}
 
 	std::string CNoQuarterState::ToString() const
 	{
 		return "waiting for quarter";
 	}
-
 
 	CGumballMachine::CGumballMachine(unsigned numBalls)
 		: m_soldState(*this)
@@ -212,6 +237,21 @@ namespace with_state
 		, m_hasQuarterState(*this)
 		, m_state(&m_soldOutState)
 		, m_count(numBalls)
+		, m_out(std::cout)
+	{
+		if (m_count > 0)
+		{
+			m_state = &m_noQuarterState;
+		}
+	}
+	CGumballMachine::CGumballMachine(std::ostream & out, unsigned numBalls)
+		: m_soldState(out, *this)
+		, m_soldOutState(out, *this)
+		, m_noQuarterState(out, *this)
+		, m_hasQuarterState(out, *this)
+		, m_state(&m_soldOutState)
+		, m_count(numBalls)
+		, m_out(out)
 	{
 		if (m_count > 0)
 		{
@@ -261,7 +301,7 @@ Machine is %4%
 	{
 		if (m_count != 0)
 		{
-			std::cout << "A gumball comes rolling out the slot...\n";
+			m_out << "A gumball comes rolling out the slot...\n";
 			--m_count;
 		}
 	}
