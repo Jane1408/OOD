@@ -87,7 +87,6 @@ namespace with_dynamic_state
 	}
 	void CSoldOutState::Refill(unsigned numBalls)
 	{
-		numBalls = numBalls >= 0 ? numBalls : 0;
 		m_gumballMachine.SetBallCount(numBalls);
 		if (numBalls > 0)
 		{
@@ -97,7 +96,7 @@ namespace with_dynamic_state
 				m_gumballMachine.SetNoQuarterState();
 		}
 		else
-			m_gumballMachine.SetSoldState();
+			m_gumballMachine.SetSoldOutState();
 		std::cout << "Refill gumballs count " << numBalls << "\n";
 	}
 	std::string CSoldOutState::ToString() const
@@ -137,7 +136,6 @@ namespace with_dynamic_state
 	}
 	void CHasQuarterState::Refill(unsigned numBalls)
 	{
-		numBalls = numBalls >= 0 ? numBalls : 0;
 		m_gumballMachine.SetBallCount(numBalls);
 		if (numBalls > 0)
 		{
@@ -147,7 +145,7 @@ namespace with_dynamic_state
 				m_gumballMachine.SetNoQuarterState();
 		}
 		else
-			m_gumballMachine.SetSoldState();
+			m_gumballMachine.SetSoldOutState();
 		std::cout << "Refill gumballs count " << numBalls << "\n";
 	}
 	std::string CHasQuarterState::ToString() const
@@ -180,7 +178,6 @@ namespace with_dynamic_state
 	}
 	void CNoQuarterState::Refill(unsigned numBalls)
 	{
-		numBalls = numBalls >= 0 ? numBalls : 0;
 		m_gumballMachine.SetBallCount(numBalls);
 		if (numBalls > 0)
 		{
@@ -190,14 +187,13 @@ namespace with_dynamic_state
 				m_gumballMachine.SetNoQuarterState();
 		}
 		else
-			m_gumballMachine.SetSoldState();
+			m_gumballMachine.SetSoldOutState();
 		std::cout << "Refill gumballs count " << numBalls << "\n";
 	}
 	std::string CNoQuarterState::ToString() const
 	{
 		return "waiting for quarter";
 	}
-
 
 
 	CGumballMachine::CGumballMachine(unsigned numBalls)

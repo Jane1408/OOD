@@ -101,7 +101,6 @@ namespace with_state
 
 	void CSoldOutState::Refill(unsigned numBalls)
 	{
-		numBalls = numBalls >= 0 ? numBalls : 0;
 		m_gumballMachine.SetBallCount(numBalls);
 		if (numBalls > 0)
 		{
@@ -111,7 +110,7 @@ namespace with_state
 				m_gumballMachine.SetNoQuarterState();
 		}
 		else
-			m_gumballMachine.SetSoldState();
+			m_gumballMachine.SetSoldOutState();
 		m_out << "Refill gumballs count " << numBalls << "\n";
 	}
 
@@ -161,7 +160,6 @@ namespace with_state
 
 	void CHasQuarterState::Refill(unsigned numBalls)
 	{
-		numBalls = numBalls >= 0 ? numBalls : 0;
 		m_gumballMachine.SetBallCount(numBalls);
 		if (numBalls > 0)
 		{
@@ -171,7 +169,7 @@ namespace with_state
 				m_gumballMachine.SetNoQuarterState();
 		}
 		else
-			m_gumballMachine.SetSoldState();
+			m_gumballMachine.SetSoldOutState();
 		m_out << "Refill gumballs count " << numBalls << "\n";
 	}
 
@@ -214,14 +212,13 @@ namespace with_state
 
 	void CNoQuarterState::Refill(unsigned numBalls)
 	{
-		numBalls = numBalls >= 0 ? numBalls : 0;
 		m_gumballMachine.SetBallCount(numBalls);
 		if (numBalls > 0)
 		{
 			m_gumballMachine.SetNoQuarterState();
 		}
 		else
-			m_gumballMachine.SetSoldState();
+			m_gumballMachine.SetSoldOutState();
 		m_out << "Refill gumballs count " << numBalls << "\n";
 	}
 
