@@ -3,7 +3,7 @@ class ICanvas
 {
 public:
 	ICanvas() {};
-	virtual ~ICanvas() = 0;
+	virtual ~ICanvas() = default;
 
 	virtual void SetColor(Color color) = 0;
 	virtual void DrawLine(Vector2 from, Vector2 to) = 0;

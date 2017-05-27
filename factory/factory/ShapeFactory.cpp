@@ -58,15 +58,16 @@ std::shared_ptr<CShape> CShapeFactory::CreateRectangle(std::istream & dscr)
 	Vector2 leftTop(-1.0, -1.0);
 	Vector2 rightBottom(-1.0, -1.0);
 	dscr >> leftTop.x >> leftTop.y >> rightBottom.x >> rightBottom.y;
-
-	if ((leftTop.x < rightBottom.x || leftTop.y > rightBottom.y)
-		&& !(leftTop.x >= 0 && rightBottom.x >= 0 && leftTop.y >= 0 && rightBottom.y >= 0))
+	try 
 	{
-		throw std::invalid_argument("Invalid data");
+		auto shape = std::make_shared<CRectangle>(leftTop, rightBottom);
+		return shape;
 	}
-
-	auto shape = std::make_shared<CRectangle>(leftTop, rightBottom);
-	return shape;
+	catch(...)
+	{
+		std::cout << "Can't create rectangle" << std::endl;
+	}
+	return std::shared_ptr<CShape>();
 }
 
 std::shared_ptr<CShape> CShapeFactory::CreateEllipse(std::istream & dscr)
@@ -78,13 +79,16 @@ std::shared_ptr<CShape> CShapeFactory::CreateEllipse(std::istream & dscr)
 	dscr >> horizontalRadius;
 	dscr >> verticalRadius;
 
-	if (!(center.x >= 0 && horizontalRadius >= 0 && center.y >= 0 && verticalRadius >= 0))
+	try
 	{
-		throw std::invalid_argument("Invalid data");
+		auto shape = std::make_shared<CEllipse>(center, horizontalRadius, verticalRadius);
+		return shape;
 	}
-
-	auto shape = std::make_shared<CEllipse>(center, horizontalRadius, verticalRadius);
-	return shape;
+	catch (...)
+	{
+		std::cout << "Can't create ellipse" << std::endl;
+	}
+	return std::shared_ptr<CShape>();
 }
 
 std::shared_ptr<CShape> CShapeFactory::CreateTriangle(std::istream & dscr)
@@ -96,11 +100,14 @@ std::shared_ptr<CShape> CShapeFactory::CreateTriangle(std::istream & dscr)
 	dscr >> vertex2.x >> vertex2.y;
 	dscr >> vertex3.x >> vertex3.y;
 
-	if (!(vertex1.x >= 0 && vertex1.y >= 0 && vertex2.x >= 0 && vertex2.y >= 0 && vertex3.x >= 0 && vertex3.y >= 0))
+	try
 	{
-		throw std::invalid_argument("Invalid data");
+		auto shape = std::make_shared<CTriangle>(vertex1, vertex2, vertex3);
+		return shape;
 	}
-
-	auto shape = std::make_shared<CTriangle>(vertex1, vertex2, vertex3);
-	return shape;
+	catch (...)
+	{
+		std::cout << "Can't create triangle" << std::endl;
+	}
+	return std::shared_ptr<CShape>();
 }

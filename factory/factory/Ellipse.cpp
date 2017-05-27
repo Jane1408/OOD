@@ -4,10 +4,13 @@
 
 
 CEllipse::CEllipse(Vector2 const& center, double const& horizontalRadius, double const& verticalRadius)
-	: m_center(center)
-	, m_horizontalRadius(horizontalRadius)
-	, m_verticalRadius(verticalRadius)
 {
+	if ((center.x < 0 || horizontalRadius < 0 || center.y < 0 || verticalRadius < 0) ||
+		(center.x - horizontalRadius < 0 || center.y - verticalRadius < 0))
+		throw std::invalid_argument("Invalid data");
+	m_center = center;
+	m_horizontalRadius = horizontalRadius;
+	m_verticalRadius = verticalRadius;
 }
 
 

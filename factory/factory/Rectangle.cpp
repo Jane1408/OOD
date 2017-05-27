@@ -3,11 +3,13 @@
 
 
 CRectangle::CRectangle(Vector2 const& leftTop, Vector2 const& rightBottom)
-	: m_leftTop(leftTop)
-	, m_rightBottom(rightBottom)
 {
+	if (!(leftTop.x < rightBottom.x && leftTop.y < rightBottom.y) ||
+		(leftTop.x < 0 || rightBottom.x < 0 || leftTop.y < 0 || rightBottom.y < 0))
+		throw std::invalid_argument("Invalid data");
+	m_leftTop = leftTop;
+	m_rightBottom = rightBottom;
 }
-
 
 CRectangle::~CRectangle()
 {
