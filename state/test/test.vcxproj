@@ -157,7 +157,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\gumball_machine\GumBallMachineWithState.cpp" />
+    <ClCompile Include="..\gumball_machine\NaiveGumBallMachine.cpp" />
     <ClCompile Include="GumBallMachineTest.cpp" />
+    <ClCompile Include="NaiveGumBallMachineTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -38,5 +38,11 @@
     <ClCompile Include="..\gumball_machine\GumBallMachineWithState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NaiveGumBallMachineTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gumball_machine\NaiveGumBallMachine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

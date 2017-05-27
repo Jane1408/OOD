@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <iostream>
 #include <boost/format.hpp>
 #include "Constants.h"
@@ -6,10 +7,19 @@
 namespace naive
 {
 
+	CGumballMachine::CGumballMachine(std::ostream & out,unsigned count)
+		: m_count(count)
+		, m_state(count > 0 ? State::NoQuarter : State::NoQuarterAndSoldOut)
+		, m_quarterCount(0)
+		, m_out(out)
+	{
+	}
+
 	CGumballMachine::CGumballMachine(unsigned count)
 		: m_count(count)
 		, m_state(count > 0 ? State::NoQuarter : State::NoQuarterAndSoldOut)
 		, m_quarterCount(0)
+		, m_out(std::cout)
 	{
 	}
 
@@ -20,24 +30,24 @@ namespace naive
 		{
 		case State::NoQuarterAndSoldOut:
 		case State::HasQuarterAndSoldOut:
-			cout << "You can't insert a quarter, the machine is sold out\n";
+			m_out << "You can't insert a quarter, the machine is sold out\n";
 			break;
 		case State::NoQuarter:
-			cout << "You inserted a quarter\n";
+			m_out << "You inserted a quarter\n";
 			++m_quarterCount;
 			m_state = State::HasQuarter;
 			break;
 		case State::HasQuarter:
 			if (m_quarterCount < QUARTER_LIMIT)
 			{
-				cout << "You inserted a quarter\n";
+				m_out << "You inserted a quarter\n";
 				++m_quarterCount;
 			}
 			else
-				cout << "You can't insert another quarter\n";
+				m_out << "You can't insert another quarter\n";
 			break;
 		case State::Sold:
-			cout << "You inserted a quarter\n";
+			m_out << "You inserted a quarter\n";
 			++m_quarterCount;
 			m_state = State::HasQuarter;
 			break;
@@ -50,22 +60,22 @@ namespace naive
 		switch (m_state)
 		{
 		case State::HasQuarter:
-			cout << "Quarter returned\n";
+			m_out << "Quarter returned\n";
 			m_state = State::NoQuarter;
 			m_quarterCount = 0;
 			break;
 		case State::NoQuarter:
-			cout << "You haven't inserted a quarter\n";
+			m_out << "You haven't inserted a quarter\n";
 			break;
 		case State::Sold:
-			cout << "Sorry you already turned the crank\n";
+			m_out << "Sorry you already turned the crank\n";
 			break;
 		case State::HasQuarterAndSoldOut:
-			cout << "Quarter returned\n";
+			m_out << "Quarter returned\n";
 			m_quarterCount = 0;
 			break;
 		case State::NoQuarterAndSoldOut:
-			cout << "You can't eject, you haven't inserted a quarter yet\n";
+			m_out << "You can't eject, you haven't inserted a quarter yet\n";
 			break;
 		}
 	}
@@ -77,19 +87,19 @@ namespace naive
 		{
 		case State::NoQuarterAndSoldOut:
 		case State::HasQuarterAndSoldOut:
-			cout << "You turned but there's no gumballs\n";
+			m_out << "You turned but there's no gumballs\n";
 			break;
 		case State::NoQuarter:
-			cout << "You turned but there's no quarter\n";
+			m_out << "You turned but there's no quarter\n";
 			break;
 		case State::HasQuarter:
-			cout << "You turned...\n";
+			m_out << "You turned...\n";
 			--m_quarterCount;
 			m_state = State::Sold;
 			Dispense();
 			break;
 		case State::Sold:
-			cout << "Turning twice doesn't get you another gumball\n";
+			m_out << "Turning twice doesn't get you another gumball\n";
 			break;
 		}
 	}
@@ -105,10 +115,10 @@ namespace naive
 		case State::NoQuarter:
 		case State::HasQuarter:
 			m_count = numBalls;
-			std::cout << "Refill gumballs count " << m_count << "\n";
+			m_out << "Refill gumballs count " << m_count << "\n";
 			break;
 		case State::Sold:
-			cout << "You can't refill gumball machine\n";
+			m_out << "You can't refill gumball machine\n";
 			break;
 		}
 		if (m_count > 0)
@@ -141,11 +151,11 @@ Machine is %4%
 		switch (m_state)
 		{
 		case State::Sold:
-			cout << "A gumball comes rolling out the slot\n";
+			m_out << "A gumball comes rolling out the slot\n";
 			--m_count;
 			if (m_count == 0)
 			{
-				cout << "Oops, out of gumballs\n";
+				m_out << "Oops, out of gumballs\n";
 				m_state = (m_quarterCount == 0) ? State::NoQuarterAndSoldOut : State::HasQuarterAndSoldOut;
 			}
 			else
@@ -154,12 +164,12 @@ Machine is %4%
 			}
 			break;
 		case State::NoQuarter:
-			cout << "You need to pay first\n";
+			m_out << "You need to pay first\n";
 			break;
 		case State::NoQuarterAndSoldOut:
 		case State::HasQuarterAndSoldOut:
 		case State::HasQuarter:
-			cout << "No gumball dispensed\n";
+			m_out << "No gumball dispensed\n";
 			break;
 		}
 	}

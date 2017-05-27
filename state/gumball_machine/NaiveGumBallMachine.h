@@ -17,6 +17,7 @@ public:
 		NoQuarterAndSoldOut,	// Жвачка закончилась, монеток нет
 	};
 
+	CGumballMachine(std::ostream & out, unsigned count);
 	CGumballMachine(unsigned count);
 
 	void InsertQuarter();
@@ -31,5 +32,6 @@ private:
 	unsigned m_count;	// Количество шариков
 	unsigned m_quarterCount;
 	State m_state = State::NoQuarterAndSoldOut;
+	std::ostream& m_out;
 };
 }
