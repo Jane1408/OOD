@@ -4,7 +4,7 @@ class CTriangle :
 	public CShape
 {
 public:
-	CTriangle(Vector2 const& vertex1, Vector2 const& vertex2, Vector2 const& vertex3);
+	CTriangle(Color color, Vector2 const& vertex1, Vector2 const& vertex2, Vector2 const& vertex3);
 	~CTriangle();
 
 	void Draw(ICanvas & canvas) const override;

@@ -1,0 +1,22 @@
+<svg xmlns='http://www.w3.org/2000/svg'>
+<line x1= '0' y1= '400' x2= '400' y2= '400' stroke-width= '1' fill = 'none' stroke= 'Green' />
+<line x1= '400' y1= '400' x2= '400' y2= '401' stroke-width= '1' fill = 'none' stroke= 'Green' />
+<line x1= '400' y1= '401' x2= '0' y2= '401' stroke-width= '1' fill = 'none' stroke= 'Green' />
+<line x1= '0' y1= '401' x2= '0' y2= '400' stroke-width= '1' fill = 'none' stroke= 'Green' />
+<ellipse cx= '100' cy= '100' rx= '50' ry= '50' stroke-width= '1' fill = 'none' stroke= 'Yellow' />
+<line x1= '200' y1= '200' x2= '399' y2= '200' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '399' y1= '200' x2= '399' y2= '399' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '399' y1= '399' x2= '200' y2= '399' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '200' y1= '399' x2= '200' y2= '200' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '250' y1= '250' x2= '350' y2= '250' stroke-width= '1' fill = 'none' stroke= 'Blue' />
+<line x1= '350' y1= '250' x2= '350' y2= '350' stroke-width= '1' fill = 'none' stroke= 'Blue' />
+<line x1= '350' y1= '350' x2= '250' y2= '350' stroke-width= '1' fill = 'none' stroke= 'Blue' />
+<line x1= '250' y1= '350' x2= '250' y2= '250' stroke-width= '1' fill = 'none' stroke= 'Blue' />
+<line x1= '320' y1= '50' x2= '370' y2= '50' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '370' y1= '50' x2= '370' y2= '140' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '370' y1= '140' x2= '320' y2= '140' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '320' y1= '140' x2= '320' y2= '50' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '200' y1= '200' x2= '300' y2= '50' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '300' y1= '50' x2= '399' y2= '200' stroke-width= '1' fill = 'none' stroke= 'Black' />
+<line x1= '399' y1= '200' x2= '200' y2= '200' stroke-width= '1' fill = 'none' stroke= 'Black' />
+</svg>

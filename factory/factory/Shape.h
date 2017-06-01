@@ -4,7 +4,7 @@
 class CShape
 {
 public:
-	CShape();
+	CShape(Color color);
 	virtual ~CShape();
 
 	virtual void Draw(ICanvas & canvas) const;

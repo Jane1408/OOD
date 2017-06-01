@@ -4,7 +4,7 @@ class CEllipse :
 	public CShape
 {
 public:
-	CEllipse(Vector2 const& center, double const& horizontalRadius, double const& verticalRadius);
+	CEllipse(Color color, Vector2 const& center, double const& horizontalRadius, double const& verticalRadius);
 	~CEllipse();
 
 	void Draw(ICanvas & canvas) const override;

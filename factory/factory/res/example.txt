@@ -1,0 +1,6 @@
+Rectangle 0 400 400 401 Green
+Ellipse 100 100 50 50 Yellow
+Rectangle 200 200 399 399 Black
+Rectangle 250 250 350 350 Blue
+Rectangle 320 50 370 140 Black
+Triangle 200 200 300 50 399 200 Red

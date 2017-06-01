@@ -2,7 +2,8 @@
 #include "Triangle.h"
 
 
-CTriangle::CTriangle(Vector2 const& vertex1, Vector2 const& vertex2, Vector2 const& vertex3)
+CTriangle::CTriangle(Color color, Vector2 const& vertex1, Vector2 const& vertex2, Vector2 const& vertex3)
+	: CShape(color)
 {
 	if (vertex1.x < 0 || vertex1.y < 0 || vertex2.x < 0 || vertex2.y < 0 || vertex3.x < 0 || vertex3.y < 0)
 		throw std::invalid_argument("Invalid data");

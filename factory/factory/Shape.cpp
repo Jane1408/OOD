@@ -2,7 +2,8 @@
 #include "Shape.h"
 
 
-CShape::CShape()
+CShape::CShape(Color color)
+	: m_color(color)
 {
 }
 

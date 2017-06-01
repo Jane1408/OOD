@@ -15,7 +15,7 @@ void CCanvas::SetColor(Color color)
 {
 	try 
 	{
-		std::cout << "Current color " << COLOR_STR_MAP.at(color) << std::endl;
+		std::cout << "Current color " << COLOR_TO_STR_LIST.at(color) << std::endl;
 		m_currentColor = color;
 	}
 	catch (...)
