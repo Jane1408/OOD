@@ -142,13 +142,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="Group.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="SimpleShapes.cpp" />
+    <ClCompile Include="Slide.cpp" />
+    <ClCompile Include="Style.cpp" />
+    <ClCompile Include="SVGCanvas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="Group.h" />
+    <ClInclude Include="ICanvas.h" />
     <ClInclude Include="CommonTypes.h" />
-    <ClInclude Include="version1.h" />
-    <ClInclude Include="version2.h" />
+    <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="IGroup.h" />
+    <ClInclude Include="IShape.h" />
+    <ClInclude Include="IShapeCollection.h" />
+    <ClInclude Include="ISlide.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="SimpleShapes.h" />
+    <ClInclude Include="Slide.h" />
+    <ClInclude Include="Style.h" />
+    <ClInclude Include="SVGCanvas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

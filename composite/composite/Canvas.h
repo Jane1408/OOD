@@ -1,15 +1,21 @@
 #pragma once
-#include "CommonTypes.h"
+#include "ICanvas.h"
+#include <iostream>
 
-class ICanvas
+class CCanvas :
+	public ICanvas
 {
 public:
-	virtual void SetLineColor(RGBAColor color) = 0;
-	virtual void BeginFill(RGBAColor color) = 0;
-	virtual void EndFill() = 0;
-	virtual void MoveTo(double x, double y) = 0;
-	virtual void LineTo(double x, double y) = 0;
-	virtual void DrawEllipse(double left, double top, double width, double height) = 0;
+	CCanvas(std::ostream& strm);
+	~CCanvas();
+	void SetLineColor(RGBAColor color) override;
+	void BeginFill(RGBAColor color) override;
+	void EndFill() override;
+	void MoveTo(double x, double y) override;
+	void LineTo(double x, double y) override;
+	void DrawEllipse(double left, double top, double width, double height) override;
+private:
+	std::string TextedColor(RGBAColor color);
 
-	virtual ~ICanvas() = 0;
+	std::ostream& m_strm;
 };
