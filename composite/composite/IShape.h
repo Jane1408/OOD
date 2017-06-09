@@ -3,11 +3,10 @@
 #include "Style.h"
 #include <memory>
 
-class IShapesCollection;
 class IShape;
 
 using IShapePtr = std::shared_ptr<IShape>;
-using IGroupPtr = std::shared_ptr<IShapesCollection>;
+using IGroupPtr = IShapePtr;
 
 class IShape : public IDrawable
 {

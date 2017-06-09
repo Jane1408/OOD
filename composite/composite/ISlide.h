@@ -1,6 +1,5 @@
 #pragma once
 #include "IDrawable.h"
-#include "IShapeCollection.h"
 
 class ISlide :
 	public IDrawable

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Slide.h"
 #include <algorithm>
 
@@ -13,7 +14,7 @@ CSlide::~CSlide()
 double CSlide::GetWidth() const
 {
 	double width = 0;
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		RectD frame = shape->GetFrame();
 		width = std::max(width, frame.left + frame.width);
@@ -24,7 +25,7 @@ double CSlide::GetWidth() const
 double CSlide::GetHeight() const
 {
 	double height = 0;
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		RectD frame = shape->GetFrame();
 		height = std::max(height, frame.top + frame.height);
@@ -34,43 +35,22 @@ double CSlide::GetHeight() const
 
 IShapePtr CSlide::GetShape(size_t index) const
 {
-	if (index >= m_shapes.size())
-	{
-		throw std::invalid_argument("Shapes index out of range");
-	}
-	return m_shapes.at(index);
+	return m_shapesCollection.GetShape(index);
 }
 
 void CSlide::InsertShape(const IShapePtr & component, size_t position)
 {
-	if (position == std::numeric_limits<size_t>::max())
-	{
-		m_shapes.push_back(component);
-	}
-	else if (position >= m_shapes.size())
-	{
-		throw std::invalid_argument("Shape position out of range");
-	}
-	else
-	{
-		m_shapes.insert(m_shapes.begin() + position, component);
-	}
+	m_shapesCollection.InsertShape(component);
 }
 
 void CSlide::RemoveShape(const IShapePtr & component)
 {
-	for (auto i = m_shapes.begin(); i != m_shapes.end(); ++i)
-	{
-		if (*i == component)
-		{
-			m_shapes.erase(i);
-		}
-	}
+	m_shapesCollection.RemoveShape(component);
 }
 
 size_t CSlide::ShapesCount() const
 {
-	return m_shapes.size();
+	return m_shapesCollection.ShapesCount();
 }
 
 RGBAColor CSlide::GetBackgroundColor() const
@@ -83,11 +63,11 @@ void CSlide::SetBackgroundColor(RGBAColor color)
 	m_backgroundColor = color;
 }
 
-void CSlide::Draw(ICanvas & canvas)
+void CSlide::Draw(ICanvas & canvas) const
 {
 	canvas.BeginFill(m_backgroundColor);
 	canvas.EndFill();
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		shape->Draw(canvas);
 	}

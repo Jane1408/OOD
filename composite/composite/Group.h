@@ -1,20 +1,20 @@
 #pragma once
-#include "IGroup.h"
+#include "ShapesCollection.h"
 #include <vector>
 
 
 class CGroup :
-	public IGroup,
+	public IShape,
 	public std::enable_shared_from_this<CGroup>
 {
 public:
 	CGroup();
 	~CGroup();
 
-	IShapePtr GetShape(size_t index)const override;
-	void InsertShape(const IShapePtr &component, size_t position = std::numeric_limits<size_t>::max()) override;
-	void RemoveShape(const IShapePtr &component) override;
-	size_t ShapesCount() const override;
+	IShapePtr GetShape(size_t index)const;
+	void InsertShape(const IShapePtr &component, size_t position = std::numeric_limits<size_t>::max());
+	void RemoveShape(const IShapePtr &component);
+	size_t ShapesCount() const;
 
 	OptionalStyle GetLineStyle()const override;
 	void SetLineStyle(const CStyle& style) override;
@@ -27,9 +27,9 @@ public:
 
 	IGroupPtr GetGroup() override;
 
-	void Draw(ICanvas & canvas) override;
+	void Draw(ICanvas & canvas) const override;
 
 private:
-	std::vector<IShapePtr> m_shapes;
+	CShapesCollection m_shapesCollection;
 };
 

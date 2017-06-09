@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <iomanip>
 #include <sstream>
 #include "Canvas.h"

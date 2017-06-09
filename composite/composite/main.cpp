@@ -1,4 +1,5 @@
-﻿#include <cstdint>
+﻿#include "stdafx.h"
+#include <cstdint>
 #include <memory>
 #include <limits>
 #include <functional>
@@ -40,7 +41,7 @@ int main()
 	group->InsertShape(triangleShape);
 	group->InsertShape(ellipseShape);
 
-	group->SetFillStyle(greenStyle);
+	group->SetFillStyle(blueStyle);
 	group->SetLineStyle(redStyle);
 
 	slide.InsertShape(group);

@@ -1,10 +1,10 @@
 #pragma once
 #include "ISlide.h"
+#include "ShapesCollection.h"
 #include <vector>
 
 class CSlide :
-	public ISlide,
-	public IShapesCollection
+	public ISlide
 {
 public:
 	CSlide();
@@ -13,17 +13,17 @@ public:
 	double GetWidth()const override;
 	double GetHeight()const override;
 
-	IShapePtr GetShape(size_t index)const override;
-	void InsertShape(const IShapePtr &component, size_t position = std::numeric_limits<size_t>::max()) override;
-	void RemoveShape(const IShapePtr &component) override;
-	size_t ShapesCount() const override;
+	IShapePtr GetShape(size_t index)const;
+	void InsertShape(const IShapePtr &component, size_t position = std::numeric_limits<size_t>::max());
+	void RemoveShape(const IShapePtr &component);
+	size_t ShapesCount() const;
 
 	RGBAColor GetBackgroundColor()const;
 	void SetBackgroundColor(RGBAColor color);
-	void Draw(ICanvas & canvas) override;
+	void Draw(ICanvas & canvas) const override;
 
 private:
 	RGBAColor m_backgroundColor;
-	std::vector<IShapePtr> m_shapes;
+	CShapesCollection m_shapesCollection;
 
 };

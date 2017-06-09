@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <algorithm>
 #include "CommonTypes.h"
 #include "Group.h"
@@ -13,49 +14,28 @@ CGroup::~CGroup()
 
 IShapePtr CGroup::GetShape(size_t index) const
 {
-	if (index >= m_shapes.size())
-	{
-		throw std::invalid_argument("Shapes index out of range");
-	}
-	return m_shapes.at(index);
+	return m_shapesCollection.GetShape(index);
 }
 
 void CGroup::InsertShape(const IShapePtr & component, size_t position)
 {
-	if (position == std::numeric_limits<size_t>::max())
-	{
-		m_shapes.push_back(component);
-	}
-	else if (position >= m_shapes.size())
-	{
-		throw std::invalid_argument("Shape position out of range");
-	}
-	else
-	{
-		m_shapes.insert(m_shapes.begin() + position, component);
-	}
+	m_shapesCollection.InsertShape(component);
 }
 
 void CGroup::RemoveShape(const IShapePtr & component)
 {
-	for (auto i = m_shapes.begin(); i != m_shapes.end(); ++i)
-	{
-		if (*i == component)
-		{
-			m_shapes.erase(i);
-		}
-	}
+	m_shapesCollection.RemoveShape(component);
 }
 
 size_t CGroup::ShapesCount() const
 {
-	return m_shapes.size();
+	return m_shapesCollection.ShapesCount();
 }
 
 OptionalStyle CGroup::GetLineStyle() const
 {
 	OptionalStyle style;
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		if (!style)
 		{
@@ -71,7 +51,7 @@ OptionalStyle CGroup::GetLineStyle() const
 
 void CGroup::SetLineStyle(const CStyle & style)
 {
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		shape->SetLineStyle(style);
 	}
@@ -80,7 +60,7 @@ void CGroup::SetLineStyle(const CStyle & style)
 OptionalStyle CGroup::GetFillStyle() const
 {
 	OptionalStyle style;
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		if (!style)
 		{
@@ -96,7 +76,7 @@ OptionalStyle CGroup::GetFillStyle() const
 
 void CGroup::SetFillStyle(const CStyle & style)
 {
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		shape->SetFillStyle(style);
 	}
@@ -104,18 +84,19 @@ void CGroup::SetFillStyle(const CStyle & style)
 
 RectD CGroup::GetFrame() const
 {
-	if (m_shapes.empty())
+	auto shapes = m_shapesCollection.GetShapes();
+	if (shapes.empty())
 	{
 		return { 0,0,0,0 };
 	}
-	RectD rect = m_shapes.front()->GetFrame();
-	for (auto &shape : m_shapes)
+	RectD rect = shapes.front()->GetFrame();
+	for (auto &shape : shapes)
 	{
 		RectD shapeRect = shape->GetFrame();
 		rect.left = std::min(shapeRect.left, rect.left);
 		rect.top = std::min(shapeRect.top, rect.top);
-		rect.width = std::max(shapeRect.width, rect.width);
-		rect.height = std::max(shapeRect.height, rect.height);
+		rect.width = std::max(shapeRect.width, rect.left + rect.width);
+		rect.height = std::max(shapeRect.height, rect.top + rect.height);
 	}
 	return rect;
 }
@@ -126,13 +107,13 @@ void CGroup::SetFrame(const RectD & rect)
 	auto xScale = rect.width / currentRect.width;
 	auto yScale = rect.height / currentRect.height;
 
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		auto shapeRect = shape->GetFrame();
-		auto xOffset = rect.left - currentRect.left;
-		auto yOffset = rect.top - currentRect.top;
+		auto xOffset = (shapeRect.left - currentRect.left) * xScale;
+		auto yOffset = (shapeRect.top - currentRect.top) * yScale;
 
-		RectD newRect{ shapeRect.left + xOffset, shapeRect.top + yOffset, shapeRect.width * xScale, shapeRect.height * yScale };
+		RectD newRect{ rect.left + xOffset, rect.top + yOffset, shapeRect.width * xScale, shapeRect.height * yScale };
 		shape->SetFrame(newRect);
 	}
 }
@@ -142,9 +123,9 @@ IGroupPtr CGroup::GetGroup()
 	return shared_from_this();
 }
 
-void CGroup::Draw(ICanvas & canvas)
+void CGroup::Draw(ICanvas & canvas) const
 {
-	for (auto &shape : m_shapes)
+	for (auto &shape : m_shapesCollection.GetShapes())
 	{
 		shape->Draw(canvas);
 	}

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SimpleShapes.h"
 
 
@@ -6,7 +7,7 @@ CRectangle::CRectangle(const RectD & rect)
 	SetFrame(rect);
 }
 
-void CRectangle::Draw(ICanvas & canvas)
+void CRectangle::Draw(ICanvas & canvas) const
 {
 	auto fillStyle = boost::get<CStyle>(&GetFillStyle());
 	auto lineStyle = boost::get<CStyle>(&GetLineStyle());
@@ -38,7 +39,7 @@ CEllipse::CEllipse(const RectD & rect)
 	SetFrame(rect);
 }
 
-void CEllipse::Draw(ICanvas & canvas)
+void CEllipse::Draw(ICanvas & canvas) const
 {
 	auto fillStyle = boost::get<CStyle>(&GetFillStyle());
 	auto lineStyle = boost::get<CStyle>(&GetLineStyle());
@@ -67,7 +68,7 @@ CTriangle::CTriangle(const RectD & rect)
 	SetFrame(rect);
 }
 
-void CTriangle::Draw(ICanvas & canvas)
+void CTriangle::Draw(ICanvas & canvas) const
 {
 	auto fillStyle = boost::get<CStyle>(&GetFillStyle());
 	auto lineStyle = boost::get<CStyle>(&GetLineStyle());
