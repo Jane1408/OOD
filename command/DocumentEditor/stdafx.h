@@ -15,10 +15,15 @@
 #include <memory>
 #include <iostream>
 #include <boost/range/algorithm/find_if.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include <functional>
 #include <sstream>
 #include <deque>
 #include <cassert>
+#include <boost/lexical_cast.hpp>
+#include <boost/uuid/uuid.hpp>            
+#include <boost/uuid/uuid_generators.hpp> 
 #include <boost/scope_exit.hpp>
 
 

@@ -12,3 +12,13 @@ CInsertParagraphCommand::CInsertParagraphCommand(std::vector<CDocumentItem> & it
 CInsertParagraphCommand::~CInsertParagraphCommand()
 {
 }
+
+void CInsertParagraphCommand::DoExecute()
+{
+	m_items.insert(m_items.begin() + m_position, CDocumentItem(m_paragraph));
+}
+
+void CInsertParagraphCommand::DoUnexecute()
+{
+	m_items.erase(m_items.begin() + m_position);
+}
