@@ -18,7 +18,7 @@ public:
 	std::shared_ptr<const IParagraph> GetParagraph()const;
 	virtual ~CConstDocumentItem() = default;
 private:
-	std::shared_ptr<const IImage> m_image = nullptr;
-	std::shared_ptr<const IParagraph> m_paragraph = nullptr;
+	std::shared_ptr<const IImage> m_image;
+	std::shared_ptr<const IParagraph> m_paragraph;
 };
 

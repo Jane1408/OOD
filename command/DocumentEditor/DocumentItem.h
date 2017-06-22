@@ -19,7 +19,7 @@ public:
 	std::shared_ptr<IParagraph> GetParagraph();
 
 private:
-	std::shared_ptr<IImage> m_image = nullptr;
-	std::shared_ptr<IParagraph> m_paragraph = nullptr;
+	std::shared_ptr<IImage> m_image;
+	std::shared_ptr<IParagraph> m_paragraph;
 };
 
